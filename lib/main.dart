@@ -11,7 +11,11 @@ import 'package:quiz_app/routes/app_routes.dart';
 import 'package:quiz_app/screens/introduction/introduction.dart';
 import 'package:quiz_app/screens/splash/splash_screen.dart';
 
-void main(){
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   WidgetsFlutterBinding.ensureInitialized();
   InitialBindings().dependencies();
   runApp(MyApp());

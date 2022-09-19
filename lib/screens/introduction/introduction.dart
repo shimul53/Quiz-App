@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/configs/themes/app_colors.dart';
+import 'package:quiz_app/screens/home/home_screen.dart';
 import 'package:quiz_app/widgets/app_circle_button.dart';
 import 'package:get/get.dart';
 
@@ -29,9 +30,10 @@ class AppIntroductionScreen extends StatelessWidget {
               ),
 
               SizedBox(height: 40,),
-              AppCircleButton(
-                onTap: ()=> null,
-                child: const Icon(Icons.arrow_forward,size: 35,),)
+             IconButton(onPressed: ()=> Get.offAndToNamed("/home"), icon: const Icon(Icons.arrow_forward, size: 35))
+             /* AppCircleButton(
+                  onTap: ()=> Get.offAndToNamed("/home"),
+                  child: const Icon(Icons.arrow_forward, size: 35))*/
             ],
           ),
         ),
