@@ -9,6 +9,7 @@ class MyMenuScreen extends GetView<MyZoomDrawerController> {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       padding: UIParameters.mobileScreenPadding,
       width:double.maxFinite,
       decoration: BoxDecoration(

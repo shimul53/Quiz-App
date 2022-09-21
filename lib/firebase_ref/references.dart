@@ -2,7 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quiz_app/services/firebase_storage_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+
 final fireStore = FirebaseFirestore.instance;
+Reference get firebaseStorage => FirebaseStorage.instance.ref();
+
+final userRF = fireStore.collection("users");
 final questionPaperRF = fireStore.collection('questionPapers');
 
 DocumentReference questionRF({
@@ -11,4 +15,4 @@ DocumentReference questionRF({
 
 })=> questionPaperRF.doc(paperId).collection("questions").doc(questionId);
 
-Reference get firebaseStorage => FirebaseStorage.instance.ref();
+
