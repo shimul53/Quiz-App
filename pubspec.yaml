@@ -54,6 +54,7 @@ dev_dependencies:
   firebase_auth: ^3.9.0
   google_sign_in: ^5.4.1
   logger: ^1.1.0
+  flutter_svg: ^1.1.5
 
 
 

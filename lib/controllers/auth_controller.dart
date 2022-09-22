@@ -2,7 +2,10 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
+import 'package:quiz_app/screens/home/home_screen.dart';
+import 'package:quiz_app/screens/login/login_screen.dart';
 import 'package:quiz_app/utils/app_logger.dart';
+import 'package:quiz_app/widgets/dialogs/dialogue_widget.dart';
 
 class AuthController extends GetxController{
   @override
@@ -39,12 +42,18 @@ class AuthController extends GetxController{
        );
        await _auth.signInWithCredential(_credential);
        await saveUser(account);
+       navigateToHomePage();
      }
 
    }on Exception catch(error){
      AppLogger.e(error);
 
    }
+  }
+
+  User? getUser(){
+    _user.value = _auth.currentUser;
+    return _user.value;
   }
 
   saveUser(GoogleSignInAccount account){
@@ -57,7 +66,46 @@ class AuthController extends GetxController{
 
   }
 
+
+ Future<void> signOut() async{
+    AppLogger.d('Sign out');
+    try{
+     await _auth.signOut();
+     navigateToHomePage();
+
+    }on FirebaseAuthException catch(e){
+     AppLogger.e(e);
+    }
+
+  }
+
   void navigateToIntroduction(){
     Get.offAllNamed("/introduction");
+  }
+
+ void navigateToHomePage(){
+   Get.offAllNamed(HomeScreen.routeName);
+ }
+  
+  void showLoginAlertDialogue(){
+    Get.dialog(Dialogs.questionStartDialogue(onTap:(){
+      Get.back();
+
+      //navigate to login page
+      navigationToLoginPage();
+
+
+    }),
+
+      barrierDismissible: false,
+    );
+  }
+ void navigationToLoginPage(){
+    Get.toNamed(LoginScreen.routeName);
+
+  }
+
+  bool isLoggedIn(){
+   return  _auth.currentUser != null;
   }
 }
