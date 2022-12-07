@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/configs/themes/app_colors.dart';
+import 'package:get/get.dart';
 
 class MainButton extends StatelessWidget {
   const MainButton({Key? key,  this.title='', required this.onTap, this.enabled=true, this.child, this.color}) : super(key: key);
@@ -27,7 +28,7 @@ class MainButton extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: child??Center(
-                child: Text(title,style: const TextStyle(fontWeight: FontWeight.bold,color: onSurfaceTextColor),
+                child: Text(title,style:  TextStyle(fontWeight: FontWeight.bold,color:Get.isDarkMode?onSurfaceTextColor:Theme.of(context).primaryColor ),
               )),
             ),
           ),

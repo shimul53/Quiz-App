@@ -20,8 +20,7 @@ class QuestionPaperModel {
   });
 
   QuestionPaperModel.fromJson(Map<String, dynamic> json)
-      :
-        id = json['id'] as String,
+      :id = json['id'] as String,
         title = json['title'] as String,
         imageUrl = json['image_url'] as String,
         description = json['description'] as String,
@@ -33,8 +32,7 @@ class QuestionPaperModel {
 
 
   QuestionPaperModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> json)
-      :
-        id = json.id,
+      :id = json.id,
         title = json['title'],
         imageUrl = json['image_url'] ,
         description = json['description'] ,
@@ -62,14 +60,22 @@ class Questions {
   String question;
   List<Answers> answers;
   String? correctAnswer;
+  String? selectedAnswer;
 
   Questions({required this.id, required this.question, required this.answers,  this.correctAnswer});
 
-  Questions.fromJson(Map<String, dynamic> json) :
-    id = json['id'],
+  Questions.fromJson(Map<String, dynamic> json)
+      :id = json['id'],
     question = json['question'],
     answers = (json['answers']as List).map((e) => Answers.fromJson(e)).toList(),
     correctAnswer = json['correct_answer'];
+
+  Questions.fromSnapshot(QueryDocumentSnapshot<Map<String,dynamic>> snapshot)
+      :id=snapshot.id,
+        question = snapshot['question'],
+        answers=[],
+        correctAnswer= snapshot['correct_answer'];
+
 
 
   Map<String, dynamic> toJson() {
@@ -90,15 +96,19 @@ class Answers {
 
   Answers({this.identifier, this.answer});
 
-  Answers.fromJson(Map<String, dynamic> json) :
-    identifier = json['identifier'],
+  Answers.fromJson(Map<String, dynamic> json)
+      :identifier = json['identifier'],
     answer = json['Answer'];
+
+  Answers.fromSnapshot(QueryDocumentSnapshot<Map<String,dynamic>>snapshot)
+      :identifier = snapshot['identifier']as String?,
+        answer = snapshot['Answer'] as String?;
 
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['identifier'] = this.identifier;
-    data['Answer'] = this.answer;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['identifier'] = identifier;
+    data['Answer'] = answer;
     return data;
   }
 }

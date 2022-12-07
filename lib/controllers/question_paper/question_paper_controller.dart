@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:quiz_app/controllers/auth_controller.dart';
 import 'package:quiz_app/firebase_ref/references.dart';
 import 'package:quiz_app/models/question_paper_model.dart';
+import 'package:quiz_app/screens/question/questions_screen.dart';
 import 'package:quiz_app/services/firebase_storage_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quiz_app/utils/app_logger.dart';
@@ -36,14 +37,14 @@ class QuestionPaperController extends GetxController{
     if(_authController.isLoggedIn()){
       if(tryAgain){
         Get.back();
-        //Get.offNamed();
+        Get.toNamed(QuestionsScreen.routeName,arguments: paper,preventDuplicates: false);
       }else{
 
-        //Get.toNamed();
+        Get.toNamed(QuestionsScreen.routeName,arguments:paper );
 
       }
       }else{
-      print('The title is ${paper.title}');
+
       _authController.showLoginAlertDialogue();
 
     }
